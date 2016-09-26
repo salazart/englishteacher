@@ -10,6 +10,7 @@ config.properties
 
 /bin/*
 /gradle/*
+/build/*
 
 
 
