@@ -4,13 +4,14 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="..." class="...">
-        <!-- collaborators and configuration for this bean go here -->
-    </bean>
 
-    <bean id="..." class="...">
-        <!-- collaborators and configuration for this bean go here -->
-    </bean>
+        
+	<bean id="word3" class="com.sz.et.models.TranslationWord">
+       <property name="engWord" value="Hello World!"/>
+       <property name="rusWord" value="Привет мир!"/>
+  	</bean>
+
+	
 
     <!-- more bean definitions go here -->
 

@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.sz.et.interfaces.IHibernateDao;
 import com.sz.et.models.IEntity;
