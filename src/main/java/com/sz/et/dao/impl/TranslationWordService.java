@@ -1,6 +1,8 @@
 package com.sz.et.dao.impl;
 
 import org.hibernate.SessionFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import com.sz.et.dao.AbstractHibernateDao;
 import com.sz.et.interfaces.IHibernateDao;
@@ -12,6 +14,10 @@ public class TranslationWordService extends AbstractHibernateDao<TranslationWord
 	
 	public TranslationWordService(SessionFactory sessionFactory) {
 		super(sessionFactory);
+	}
+	
+	public TranslationWord createTranslationWord(){
+		return new TranslationWord("hi", "привет");
 	}
 	
 }

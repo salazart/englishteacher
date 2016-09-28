@@ -11,7 +11,10 @@
        <property name="rusWord" value="Привет мир!"/>
   	</bean>
 
-	
+	<bean id="word5" class="com.sz.et.models.TranslationWord">
+       <constructor-arg name="engWord" value="constructor"/>
+       <constructor-arg name="rusWord" value="конструктор"/>
+  	</bean>	
 
     <!-- more bean definitions go here -->
 
