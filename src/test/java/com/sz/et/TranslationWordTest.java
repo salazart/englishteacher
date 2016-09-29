@@ -2,6 +2,8 @@ package com.sz.et;
 
 import java.util.List;
 
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -24,7 +26,10 @@ public class TranslationWordTest {
 		TranslationWord word4 = context.getBean(TranslationWord.class);
 		TranslationWord word5 = xmlContext.getBean("word5", TranslationWord.class);
 		
-		IHibernateDao<TranslationWord> translationWordService = new TranslationWordService(HibernateUtil.getInstance().getSessionFactory());
+//		SessionFactory sessionFactory = xmlContext.getBean("sessionFactory", SessionFactory.class);
+		
+//		IHibernateDao<TranslationWord> translationWordService = new TranslationWordService(HibernateUtil.getInstance().getSessionFactory());
+		IHibernateDao<TranslationWord> translationWordService = new TranslationWordService(null);
 		word = translationWordService.save(word);
 		word2 = translationWordService.save(word2);
 		word3 = translationWordService.save(word3);
@@ -35,6 +40,7 @@ public class TranslationWordTest {
 		System.out.println(words.size());
 		words.forEach(System.out::println);
 		
-		HibernateUtil.release();
+//		HibernateUtil.release();
+		
 	}
 }

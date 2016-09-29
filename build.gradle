@@ -31,9 +31,13 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
+	// https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp
+	compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.2.2'
+	
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     
     compile("org.springframework.boot:spring-boot-devtools")
+    compile("org.springframework:spring-orm")
     
     compile 'org.hibernate:hibernate-core:5.2.2.Final'
     
