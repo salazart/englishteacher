@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+        
+    <context:annotation-config/>
         
 	<bean id="word3" class="com.sz.et.models.TranslationWord">
        <property name="engWord" value="Hello World!"/>
@@ -10,11 +15,14 @@
   	</bean>
 
 	<bean id="word5" class="com.sz.et.models.TranslationWord">
-       <constructor-arg name="engWord" value="constructor"/>
-       <constructor-arg name="rusWord" value="конструктор"/>
+       	<property name="engWord" value="constructor"/>
+       	<property name="rusWord" value="конструктор"/>
   	</bean>	
-
-    <!-- more bean definitions go here -->
+  	
+  	<bean id="word6" class="com.sz.et.models.TranslationWord">
+       <constructor-arg name="engWord" value="anonim"/>
+       <constructor-arg name="rusWord" value="аноним"/>
+  	</bean>	
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="org.h2.Driver" />
@@ -35,4 +43,8 @@
         </property>
     </bean>
 	
+	<bean id="translationWordService" class="com.sz.et.dao.impl.TranslationWordService">
+		
+  	</bean>	
+
 </beans>

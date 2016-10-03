@@ -2,8 +2,8 @@ package com.sz.et;
 
 import java.util.List;
 
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -12,7 +12,6 @@ import com.sz.et.dao.impl.TranslationWordService;
 import com.sz.et.interfaces.IHibernateDao;
 import com.sz.et.models.TranslationWord;
 import com.sz.et.services.AppConfig;
-import com.sz.et.utils.HibernateUtil;
 
 public class TranslationWordTest {
 	private static ApplicationContext xmlContext = new ClassPathXmlApplicationContext("spring-context.xml");
@@ -24,12 +23,10 @@ public class TranslationWordTest {
 		TranslationWord word2 = new TranslationWord("hello", "привет");
 		TranslationWord word3 = xmlContext.getBean("word3", TranslationWord.class);
 		TranslationWord word4 = context.getBean(TranslationWord.class);
-		TranslationWord word5 = xmlContext.getBean("word5", TranslationWord.class);
+		TranslationWord word5 = xmlContext.getBean("word6", TranslationWord.class);
 		
-//		SessionFactory sessionFactory = xmlContext.getBean("sessionFactory", SessionFactory.class);
+		IHibernateDao<TranslationWord> translationWordService = xmlContext.getBean("translationWordService", TranslationWordService.class); 
 		
-//		IHibernateDao<TranslationWord> translationWordService = new TranslationWordService(HibernateUtil.getInstance().getSessionFactory());
-		IHibernateDao<TranslationWord> translationWordService = new TranslationWordService(null);
 		word = translationWordService.save(word);
 		word2 = translationWordService.save(word2);
 		word3 = translationWordService.save(word3);
@@ -40,7 +37,6 @@ public class TranslationWordTest {
 		System.out.println(words.size());
 		words.forEach(System.out::println);
 		
-//		HibernateUtil.release();
-		
 	}
+	
 }
