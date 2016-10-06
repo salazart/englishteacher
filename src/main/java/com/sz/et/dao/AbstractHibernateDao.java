@@ -23,7 +23,7 @@ public abstract class AbstractHibernateDao<T extends IEntity> implements IHibern
 		this.clazz = (Class<T>) ((ParameterizedType) getClass()
 				.getGenericSuperclass()).getActualTypeArguments()[0];
 		
-//		this.sessionFactory = sessionFactory;
+		this.sessionFactory = sessionFactory;
 	}
 	
 	@Override
