@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+        
         
 	<bean id="word3" class="com.sz.et.models.TranslationWord">
        <property name="engWord" value="Hello World!"/>
@@ -10,13 +14,16 @@
   	</bean>
 
 	<bean id="word5" class="com.sz.et.models.TranslationWord">
-       <constructor-arg name="engWord" value="constructor"/>
-       <constructor-arg name="rusWord" value="конструктор"/>
+       	<property name="engWord" value="constructor"/>
+       	<property name="rusWord" value="конструктор"/>
   	</bean>	
-
-    <!-- more bean definitions go here -->
-
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+  	
+  	<bean id="word6" class="com.sz.et.models.TranslationWord">
+       <constructor-arg name="engWord" value="anonim"/>
+       <constructor-arg name="rusWord" value="аноним"/>
+  	</bean>	
+  	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.h2.Driver" />
 		<property name="url" value="jdbc:h2:file:~/sample" />
 		<property name="username" value="sa" />
@@ -27,12 +34,15 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan" value="com.sz.et.models" />
         <property name="hibernateProperties">
-            <props>
-            	<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
-            	<prop key="hibernate.show_sql">true</prop>
-            	<prop key="hbm2ddl.auto">create-drop</prop>
-            </props>
+            <map>
+                <entry key="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+                <entry key="hibernate.hbm2ddl.auto" value="create" />
+                <entry key="hibernate.hbm2ddl.import_files" value="import_data.sql" />
+                <entry key="hibernate.show_sql" value="true" />
+            </map>
         </property>
     </bean>
 	
+
+
 </beans>
