@@ -7,7 +7,8 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
         
-        
+    <context:annotation-config/>
+    
 	<bean id="word3" class="com.sz.et.models.TranslationWord">
        <property name="engWord" value="Hello World!"/>
        <property name="rusWord" value="Привет мир!"/>
@@ -42,7 +43,9 @@
             </map>
         </property>
     </bean>
+    
+	<bean id="wordService" class="com.sz.et.dao.impl.TranslationWordService">
+       <constructor-arg name="sessionFactory" ref="localSessionFactory"/>
+  	</bean>	
 	
-
-
 </beans>

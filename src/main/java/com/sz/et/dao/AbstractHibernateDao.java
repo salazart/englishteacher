@@ -12,7 +12,7 @@ import com.sz.et.models.IEntity;
 public abstract class AbstractHibernateDao<T extends IEntity> implements IHibernateDao<T>{
 
 	protected SessionFactory sessionFactory;
-
+	
 	protected Class<T> clazz;
 	
 	public AbstractHibernateDao(SessionFactory sessionFactory) {

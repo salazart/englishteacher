@@ -7,9 +7,18 @@ import com.sz.et.models.TranslationWord;
 
 @Configuration
 public class AppConfig {
+	
+//	@Autowired
+//	@Qualifier("localSessionFactory")
+//	private SessionFactory sessionFactory;
 
 	@Bean
 	public TranslationWord translationWord(){
 		return new TranslationWord();
 	}
+	
+//	@Bean
+//	public SessionFactory getSessionFactory(){
+//		return sessionFactory;
+//	}
 }
