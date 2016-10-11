@@ -21,6 +21,7 @@ public abstract class AbstractHibernateDao<T extends IEntity> implements IHibern
 	
 	protected Class<T> clazz;
 	
+	@SuppressWarnings("unchecked")
 	public AbstractHibernateDao() {
 		this.clazz = (Class<T>) ((ParameterizedType) getClass()
 				.getGenericSuperclass()).getActualTypeArguments()[0];
