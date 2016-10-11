@@ -21,8 +21,6 @@ public class TranslationWordTest {
 	private static ApplicationContext xmlContext = new ClassPathXmlApplicationContext("spring-context.xml");
 	private static ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 	
-
-	
 	public static void main(String[] args) {
 
 		TranslationWord word = new TranslationWord("word", "слово");
