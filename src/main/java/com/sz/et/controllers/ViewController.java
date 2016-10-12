@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.sz.et.dao.impl.TranslationWordService;
 import com.sz.et.interfaces.IHibernateDao;
@@ -35,7 +36,9 @@ public class ViewController {
 	}
 	
 	@RequestMapping("/test")
-	public String test(Model model){
-		return "test";
+	public ModelAndView test(Model model){
+		ModelAndView mav = new ModelAndView();
+        mav.setViewName("test");
+		return mav;
 	}
 }
