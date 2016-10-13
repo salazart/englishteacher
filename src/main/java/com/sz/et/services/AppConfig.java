@@ -21,13 +21,10 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	@Bean
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("WEB-INF/pages/");
+        resolver.setPrefix("WEB-INF/jsp/");
         resolver.setSuffix(".jsp");
         return resolver;
     }
-	// @Autowired
-	// @Qualifier("localSessionFactory")
-	// private SessionFactory sessionFactory;
 
 	@Bean
 	public TranslationWord translationWord() {

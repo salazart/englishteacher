@@ -1,12 +1,17 @@
 package com.sz.et.controllers;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,9 +41,30 @@ public class ViewController {
 	}
 	
 	@RequestMapping("/test")
-	public ModelAndView test(Model model){
-		ModelAndView mav = new ModelAndView();
-        mav.setViewName("test");
-		return mav;
+	public String test2(Map<String, Object> model){
+		model.put("time", new Date());
+		model.put("message", this.message);
+		return "test";
 	}
+	
+	@Value("${application.message:Hello World}")
+	private String message = "Hello World";
+	
+	@GetMapping("/")
+	public String welcome(Map<String, Object> model) {
+		model.put("time", new Date());
+		model.put("message", this.message);
+		return "welcome";
+	}
+	
+	@RequestMapping("/hello")
+    public ModelAndView hello() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("welcome");
+         
+        String str = "Hello World!";
+        mav.addObject("message", str);
+ 
+        return mav;
+    }
 }
