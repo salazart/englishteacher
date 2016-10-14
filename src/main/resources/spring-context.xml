@@ -9,6 +9,7 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<context:annotation-config />
+	<context:component-scan base-package="org.sz.et.controllers"/>
 
 	<bean id="word3" class="com.sz.et.models.TranslationWord">
 		<property name="engWord" value="Hello World!" />

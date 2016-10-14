@@ -1,7 +1,5 @@
 package com.sz.et.dao.impl;
 
-import org.springframework.context.annotation.Bean;
-
 import com.sz.et.dao.AbstractHibernateDao;
 import com.sz.et.interfaces.IHibernateDao;
 import com.sz.et.models.TranslationWord;
