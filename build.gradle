@@ -8,6 +8,7 @@ buildscript {
 }
 
 apply plugin: 'java'
+apply plugin: 'war'
 apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
 
@@ -31,12 +32,13 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
-    compile("org.springframework.boot:spring-boot-devtools")
-	compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.2.2'
-	compile("org.springframework:spring-orm")
+	compile 'org.springframework.boot:spring-boot-starter-web:1.4.1.RELEASE'
+	compile("commons-dbcp:commons-dbcp:1.2.2")
+	compile("javax.servlet:jstl:1.2")
+	providedRuntime 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	
+    compile("org.springframework:spring-orm")
     compile('org.hibernate:hibernate-core:5.2.2.Final')
-	compile('dom4j:dom4j:1.6.1')
+	
 	compile 'com.h2database:h2:1.4.191'
 }
