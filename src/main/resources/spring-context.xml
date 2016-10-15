@@ -12,8 +12,8 @@
 	<context:component-scan base-package="org.sz.et.controllers"/>
 
 	<bean id="word3" class="com.sz.et.models.TranslationWord">
-		<property name="engWord" value="Hello World!" />
-		<property name="rusWord" value="Привет мир!" />
+		<property name="engWord" value="bye" />
+		<property name="rusWord" value="до свидания" />
 	</bean>
 
 	<bean id="word5" class="com.sz.et.models.TranslationWord">
@@ -22,8 +22,8 @@
 	</bean>
 
 	<bean id="word6" class="com.sz.et.models.TranslationWord">
-		<constructor-arg name="engWord" value="anonim" />
-		<constructor-arg name="rusWord" value="аноним" />
+		<constructor-arg name="engWord" value="see" />
+		<constructor-arg name="rusWord" value="видеть" />
 	</bean>
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
@@ -40,6 +40,7 @@
 		<property name="hibernateProperties">
 			<map>
 				<entry key="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+				
 				<!-- <entry key="hibernate.hbm2ddl.auto" value="create" /> -->
 				<entry key="hibernate.hbm2ddl.import_files" value="import_data.sql" />
 				<entry key="hibernate.show_sql" value="true" />

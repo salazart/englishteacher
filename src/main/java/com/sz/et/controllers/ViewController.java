@@ -40,24 +40,15 @@ public class ViewController {
 		return "words";
 	}
 	
-//	@RequestMapping("/test")
-//	public String test2(Map<String, Object> model){
-//		model.put("time", new Date());
-//		model.put("message", this.message);
-//		return "test";
-//	}
-	
-	@RequestMapping("/test")
+	@RequestMapping("/all")
 	public String test(Model model){
-		model.addAttribute("time", new Date());
-		model.addAttribute("message", this.message);
 		
 		IHibernateDao<TranslationWord> translationWordService = xmlContext.getBean("translationWordService", TranslationWordService.class);
 		List<TranslationWord> words = translationWordService.getAll();
 		
 		model.addAttribute("words", words);
 		System.out.println(words.size());
-		return "test";
+		return "all";
 	}
 	
 	@Value("${application.message:Hello World}")
@@ -84,6 +75,15 @@ public class ViewController {
 	@PostMapping("/save")
 	public String save(@RequestParam(value="eng") String engWord, @RequestParam(value="rus") String rusWord, Model model){
 
+		TranslationWord translationWord = new TranslationWord(engWord, rusWord);
+		IHibernateDao<TranslationWord> translationWordService = xmlContext.getBean("translationWordService", TranslationWordService.class);
+		translationWordService.save(translationWord);
+
+		if(translationWord.getId() != 0){
+			model.addAttribute("popupMessage", "window.alert('Збережено')");
+		} else {
+			model.addAttribute("popupMessage", "window.alert('Помилка');");
+		}
 		
 		saveForm(model);
 		return "save";

@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>New word</title>
 </head>
-<body>
+<body onload=${popupMessage} bgcolor="#4a5770"; onkeyup="hotkey(event)">
 	<form action="save" method="post" >
 		<table border="0" cellpadding="2" cellspacing="0" style="width: 480px">
 			<tr>
@@ -16,6 +16,11 @@
 			<tr>
 				<td>Русский:</td>
 				<td><input name="rus" type="text" size="14" value=""></td>
+			</tr>
+			<tr>
+				<td>
+					<input name="save" type="submit" value="Зберегти">
+				</td>
 			</tr>
 		</table>
 	</form>

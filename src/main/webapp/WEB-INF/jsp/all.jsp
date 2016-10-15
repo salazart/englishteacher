@@ -14,9 +14,10 @@
 <table>
  <tr>
   <td width="50">Id</td>
-  <td width="150">First Name</td>
-  <td width="150">Last Name</td>
-  <td width="50">Money</td>
+  <td width="150">English</td>
+  <td width="150">Russian</td>
+  <td width="50">Iterator</td>
+  <td width="50">Right iterator</td>
  </tr>
  <c:forEach items="${words}" var="word">
   <tr>
@@ -24,6 +25,7 @@
    <td><c:out value="${word.engWord}" /></td>
    <td><c:out value="${word.rusWord}" /></td>
    <td><c:out value="${word.iterator}" /></td>
+   <td><c:out value="${word.correctIterator}" /></td>
   </tr>
  </c:forEach>
 </table>
