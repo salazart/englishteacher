@@ -43,4 +43,7 @@ dependencies {
     compile('dom4j:dom4j:1.6.1')
 	
 	compile 'com.h2database:h2:1.4.191'
+	
+	//temp line for developing application
+	compile("org.springframework.boot:spring-boot-devtools")
 }

@@ -85,13 +85,33 @@ public class ViewController {
 			model.addAttribute("popupMessage", "window.alert('Помилка');");
 		}
 		
-		saveForm(model);
-		return "save";
+		return saveForm(model);
 	}
 	
 	@GetMapping("/save")
 	public String saveForm(Model model){
 		return "save";
+	}
+	
+	@PostMapping("/learn")
+	public String learn(@RequestParam(value="eng") String engWord, @RequestParam(value="rus") String rusWord, Model model){
+
+		TranslationWord translationWord = new TranslationWord(engWord, rusWord);
+		IHibernateDao<TranslationWord> translationWordService = xmlContext.getBean("translationWordService", TranslationWordService.class);
+		translationWordService.save(translationWord);
+
+		if(translationWord.getId() != 0){
+			model.addAttribute("popupMessage", "window.alert('Збережено')");
+		} else {
+			model.addAttribute("popupMessage", "window.alert('Помилка');");
+		}
+		
+		return learnForm(model);
+	}
+	
+	@GetMapping("/learn")
+	public String learnForm(Model model){
+		return "learn";
 	}
 	
 }
