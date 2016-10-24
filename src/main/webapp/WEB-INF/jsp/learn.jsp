@@ -7,15 +7,16 @@
 <title>Input new word</title>
 </head>
 <body onload=${popupMessage} bgcolor="#4a5770"; onkeyup="hotkey(event)">
-	<form action="save" method="post" >
+	<form action="learn" method="post" >
+	<input type="hidden" name="id" value=${id}>
 		<table border="0" cellpadding="2" cellspacing="0" style="width: 480px">
 			<tr>
 				<td>English:</td>
-				<td><input name="eng" type="text" size="14" value=""></td>
+				<td><input name="eng" type="text" size="14" value=${eng}></td>
 			</tr>
 			<tr>
 				<td>Русский:</td>
-				<td><input name="rus" type="text" size="14" value=""></td>
+				<td><input name="rus" type="text" size="14" value=${rus}></td>
 			</tr>
 			<tr>
 				<td>

@@ -23,6 +23,7 @@ import com.sz.et.models.TranslationWord;
 public class ViewController {
 	
 	private static ApplicationContext xmlContext = new ClassPathXmlApplicationContext("spring-context.xml");
+	private IHibernateDao<TranslationWord> translationWordService = xmlContext.getBean("translationWordService", TranslationWordService.class);
 	
 	@RequestMapping("/general")
 	public String general(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model){
@@ -32,7 +33,7 @@ public class ViewController {
 	
 	@RequestMapping("/words")
 	public String getWords(Model model){
-		IHibernateDao<TranslationWord> translationWordService = xmlContext.getBean("translationWordService", TranslationWordService.class);
+		
 		List<TranslationWord> words = translationWordService.getAll();
 		
 		model.addAttribute("words", words);
@@ -43,7 +44,6 @@ public class ViewController {
 	@RequestMapping("/all")
 	public String test(Model model){
 		
-		IHibernateDao<TranslationWord> translationWordService = xmlContext.getBean("translationWordService", TranslationWordService.class);
 		List<TranslationWord> words = translationWordService.getAll();
 		
 		model.addAttribute("words", words);
@@ -76,7 +76,6 @@ public class ViewController {
 	public String save(@RequestParam(value="eng") String engWord, @RequestParam(value="rus") String rusWord, Model model){
 
 		TranslationWord translationWord = new TranslationWord(engWord, rusWord);
-		IHibernateDao<TranslationWord> translationWordService = xmlContext.getBean("translationWordService", TranslationWordService.class);
 		translationWordService.save(translationWord);
 
 		if(translationWord.getId() != 0){
@@ -94,16 +93,26 @@ public class ViewController {
 	}
 	
 	@PostMapping("/learn")
-	public String learn(@RequestParam(value="eng") String engWord, @RequestParam(value="rus") String rusWord, Model model){
+	public String learn(
+			@RequestParam(value="id") int id,
+			@RequestParam(value="eng") String engWord, 
+			@RequestParam(value="rus") String rusWord, Model model){
 
-		TranslationWord translationWord = new TranslationWord(engWord, rusWord);
-		IHibernateDao<TranslationWord> translationWordService = xmlContext.getBean("translationWordService", TranslationWordService.class);
-		translationWordService.save(translationWord);
+		TranslationWord originWord = translationWordService.get(id);
+		
 
-		if(translationWord.getId() != 0){
-			model.addAttribute("popupMessage", "window.alert('Збережено')");
+		if(originWord.getEngWord().equals(engWord) && originWord.getRusWord().equals(rusWord)){
+			model.addAttribute("popupMessage", "window.alert('Вірно')");
+			int iterator = originWord.getIterator();
+			originWord.setIterator(++iterator);
+			int corectIterator = originWord.getCorrectIterator();
+			originWord.setCorrectIterator(++corectIterator);
+			translationWordService.update(originWord);
 		} else {
-			model.addAttribute("popupMessage", "window.alert('Помилка');");
+			model.addAttribute("popupMessage", "window.alert('Невірно. Спробуй ще.');");
+			int iterator = originWord.getIterator();
+			originWord.setIterator(++iterator);
+			translationWordService.update(originWord);
 		}
 		
 		return learnForm(model);
@@ -111,6 +120,14 @@ public class ViewController {
 	
 	@GetMapping("/learn")
 	public String learnForm(Model model){
+		
+		List<TranslationWord> translationWords = translationWordService.getAll();
+		TranslationWord translationWord = translationWords.stream()
+				.min((word1, word2) -> Integer.compare(word1.getIterator(), word2.getIterator()))
+				.get();
+		model.addAttribute("id", translationWord.getId());
+		model.addAttribute("eng", translationWord.getEngWord());
+		model.addAttribute("rus", translationWord.getRusWord());
 		return "learn";
 	}
 	
