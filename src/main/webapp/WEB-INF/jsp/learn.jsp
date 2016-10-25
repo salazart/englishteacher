@@ -20,7 +20,7 @@
 			</tr>
 			<tr>
 				<td>
-					<input name="save" type="submit" value="Зберегти">
+					<input name="save" type="submit" value="Проверить">
 				</td>
 			</tr>
 		</table>

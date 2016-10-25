@@ -23,6 +23,8 @@ import com.sz.et.models.TranslationWord;
 public class ViewController {
 	
 	private static ApplicationContext xmlContext = new ClassPathXmlApplicationContext("spring-context.xml");
+	
+//	@Autowired
 	private IHibernateDao<TranslationWord> translationWordService = xmlContext.getBean("translationWordService", TranslationWordService.class);
 	
 	@RequestMapping("/general")
@@ -73,7 +75,9 @@ public class ViewController {
     }
 	
 	@PostMapping("/save")
-	public String save(@RequestParam(value="eng") String engWord, @RequestParam(value="rus") String rusWord, Model model){
+	public String save(
+			@RequestParam(value="eng") String engWord, 
+			@RequestParam(value="rus") String rusWord, Model model){
 
 		TranslationWord translationWord = new TranslationWord(engWord, rusWord);
 		translationWordService.save(translationWord);
@@ -129,6 +133,15 @@ public class ViewController {
 		model.addAttribute("eng", translationWord.getEngWord());
 		model.addAttribute("rus", translationWord.getRusWord());
 		return "learn";
+	}
+	
+	@GetMapping("/delete")
+	public String delete(
+			@RequestParam(value="id") int id, Model model){
+		
+		TranslationWord translationWord = translationWordService.get(id);
+		translationWordService.delete(translationWord);
+		return "all";
 	}
 	
 }

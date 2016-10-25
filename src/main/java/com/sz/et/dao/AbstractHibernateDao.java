@@ -3,7 +3,6 @@ package com.sz.et.dao;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +68,16 @@ public abstract class AbstractHibernateDao<T extends IEntity> implements IHibern
 			System.err.println(e);
 		}
 		return t;
+	}
+	
+	public void delete(T entity){
+		try (Session session = sessionFactory.openSession();){
+			session.beginTransaction();
+			session.delete(entity);
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			System.err.println(e);
+		}
 	}
 
 }
