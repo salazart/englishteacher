@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Input new word</title>
 </head>
-<body onload=${popupMessage} bgcolor="#4a5770"; onkeyup="hotkey(event)">
+<body onload=${popupMessage} onkeyup="hotkey(event)">
 	<form action="save" method="post" >
 		<table border="0" cellpadding="2" cellspacing="0" style="width: 480px">
 			<tr>

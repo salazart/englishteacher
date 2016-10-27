@@ -112,26 +112,34 @@ public class ViewController {
 			int corectIterator = originWord.getCorrectIterator();
 			originWord.setCorrectIterator(++corectIterator);
 			translationWordService.update(originWord);
+			return learnForm(0, model);
 		} else {
-			model.addAttribute("popupMessage", "window.alert('Невірно. Спробуй ще.');");
+			model.addAttribute("popupMessage", "window.alert('Невірно.Спробуй_ще');");
 			int iterator = originWord.getIterator();
 			originWord.setIterator(++iterator);
 			translationWordService.update(originWord);
+			return learnForm(id, model);
 		}
-		
-		return learnForm(model);
 	}
 	
 	@GetMapping("/learn")
-	public String learnForm(Model model){
+	public String learnForm(
+			@RequestParam(value="id") int id,
+			Model model){
 		
-		List<TranslationWord> translationWords = translationWordService.getAll();
-		TranslationWord translationWord = translationWords.stream()
-				.min((word1, word2) -> Integer.compare(word1.getIterator(), word2.getIterator()))
-				.get();
+		TranslationWord translationWord = null;
+		if(id == 0){
+			List<TranslationWord> translationWords = translationWordService.getAll();
+			translationWord = translationWords.stream()
+					.min((word1, word2) -> Integer.compare(word1.getIterator(), word2.getIterator()))
+					.get();
+		} else {
+			translationWord = translationWordService.get(id);
+		}
+		
 		model.addAttribute("id", translationWord.getId());
 		model.addAttribute("eng", translationWord.getEngWord());
-		model.addAttribute("rus", translationWord.getRusWord());
+//		model.addAttribute("rus", translationWord.getRusWord());
 		return "learn";
 	}
 	
