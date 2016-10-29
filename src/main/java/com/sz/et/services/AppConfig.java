@@ -2,13 +2,15 @@ package com.sz.et.services;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.sz.et.models.TranslationWord;
+import com.sz.et.models.Word;
 
 @Configuration
+@ImportResource("classpath:spring-context.xml")
 public class AppConfig extends WebMvcConfigurerAdapter {
 
 	@Override
@@ -25,10 +27,17 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     }
 
 	@Bean
-	public TranslationWord translationWord() {
-		return new TranslationWord("take", "брать");
+	public Word translationWord() {
+		return new Word("take", "брать");
 	}
-
+	
+//	@Bean
+//	public SessionFactory createSessionFactory() {
+//		ApplicationContext xmlContext = new ClassPathXmlApplicationContext("spring-context.xml");
+//		return xmlContext.getBean("sessionFactory", SessionFactory.class);
+//	}
+	
+	
 	// @Bean
 	// public TranslationWordService getTranslationWordService(){
 	// return new TranslationWordService();

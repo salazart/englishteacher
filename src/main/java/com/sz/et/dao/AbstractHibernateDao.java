@@ -15,10 +15,6 @@ public abstract class AbstractHibernateDao<T extends IEntity> implements IHibern
 	@Autowired
 	protected SessionFactory sessionFactory;
 	
-	public void setSessionFactory(SessionFactory sessionFactory){
-		this.sessionFactory = sessionFactory;
-	}
-	
 	protected Class<T> clazz;
 	
 	@SuppressWarnings("unchecked")

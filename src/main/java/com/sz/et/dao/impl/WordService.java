@@ -2,10 +2,11 @@ package com.sz.et.dao.impl;
 
 import com.sz.et.dao.AbstractHibernateDao;
 import com.sz.et.interfaces.IHibernateDao;
-import com.sz.et.models.TranslationWord;
+import com.sz.et.models.Word;
 
-public class TranslationWordService extends AbstractHibernateDao<TranslationWord> implements IHibernateDao<TranslationWord>{
+public class WordService extends AbstractHibernateDao<Word> implements IHibernateDao<Word>{
 
+	
 //	@Autowired
 //	public TranslationWordService(SessionFactory sessionFactory) {
 //		super(sessionFactory);

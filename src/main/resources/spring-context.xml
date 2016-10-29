@@ -2,22 +2,24 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:annotation-config />
 
-	<bean id="word3" class="com.sz.et.models.TranslationWord">
+	<bean id="word3" class="com.sz.et.models.Word">
 		<property name="engWord" value="bye" />
 		<property name="rusWord" value="до свидания" />
 	</bean>
 
-	<bean id="word5" class="com.sz.et.models.TranslationWord">
+	<bean id="word5" class="com.sz.et.models.Word">
 		<property name="engWord" value="constructor" />
 		<property name="rusWord" value="конструктор" />
 	</bean>
 
-	<bean id="word6" class="com.sz.et.models.TranslationWord">
+	<bean id="word6" class="com.sz.et.models.Word">
 		<constructor-arg name="engWord" value="see" />
 		<constructor-arg name="rusWord" value="видеть" />
 	</bean>
@@ -29,8 +31,7 @@
 		<property name="password" value="" />
 	</bean>
 
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="packagesToScan" value="com.sz.et.models" />
 		<property name="hibernateProperties">
@@ -44,7 +45,7 @@
 		</property>
 	</bean>
 
-	<bean id="translationWordService" class="com.sz.et.dao.impl.TranslationWordService" >
+	<bean id="wordService" class="com.sz.et.dao.impl.WordService" >
 		<!-- <constructor-arg name="sessionFactory" ref="localSessionFactory"/> -->
 	</bean>
 

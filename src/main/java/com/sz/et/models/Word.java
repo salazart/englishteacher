@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table( name = "translation_word" )
-public class TranslationWord implements IEntity{
+public class Word implements IEntity{
 	
 	@Id
 	@GeneratedValue(generator="increment")
@@ -32,9 +32,9 @@ public class TranslationWord implements IEntity{
 	@Column(name = "correct_iterator")
 	private int correctIterator;
 	
-	public TranslationWord() {}
+	public Word() {}
 	
-	public TranslationWord(String engWord, String rusWord) {
+	public Word(String engWord, String rusWord) {
 		setEngWord(engWord);
 		setRusWord(rusWord);
 	}

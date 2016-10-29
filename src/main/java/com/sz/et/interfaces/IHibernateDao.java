@@ -5,12 +5,9 @@ import java.util.List;
 import com.sz.et.models.IEntity;
 
 public interface IHibernateDao<T extends IEntity>{
-	public T save(T entity);
-	
-	public T update(T entity);
-	public void delete(T entity);
-	
-	public List<T> getAll();
-	
-	public T get(int id);
+	T save(T entity);
+	T update(T entity);
+	void delete(T entity);
+	T get(int id);
+	List<T> getAll();
 }
