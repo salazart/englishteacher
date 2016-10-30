@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sz.et.dao.impl.WordService;
 import com.sz.et.models.Word;
+import com.sz.et.services.AppConfig;
 
 @Controller
 public class ViewController {
@@ -56,7 +59,12 @@ public class ViewController {
 	@GetMapping("/")
 	public String welcome(Map<String, Object> model) {
 		model.put("time", new Date());
-		model.put("message", this.message);
+		
+		ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+		Word word4 = context.getBean("word3", Word.class);
+		
+		model.put("message", word4);
+//		model.put("message", this.message);
 		return "welcome";
 	}
 
@@ -72,7 +80,9 @@ public class ViewController {
 	}
 
 	@PostMapping("/save")
-	public String save(@RequestParam(value = "eng") String engWord, @RequestParam(value = "rus") String rusWord,
+	public String save(
+			@RequestParam(value = "eng") String engWord, 
+			@RequestParam(value = "rus") String rusWord,
 			Model model) {
 
 		Word translationWord = new Word(engWord, rusWord);
@@ -93,8 +103,11 @@ public class ViewController {
 	}
 
 	@PostMapping("/learn")
-	public String learn(@RequestParam(value = "id") int id, @RequestParam(value = "eng") String engWord,
-			@RequestParam(value = "rus") String rusWord, Model model) {
+	public String learn(
+			@RequestParam(value = "id") int id, 
+			@RequestParam(value = "eng") String engWord,
+			@RequestParam(value = "rus") String rusWord, 
+			@RequestParam(value = "engToRus", required = false, defaultValue = "true") boolean engToRus, Model model) {
 
 		Word originWord = wordService.get(id);
 
@@ -105,28 +118,23 @@ public class ViewController {
 			int corectIterator = originWord.getCorrectIterator();
 			originWord.setCorrectIterator(++corectIterator);
 			wordService.update(originWord);
-			return learn(model);
+			return learn(0, engToRus, model);
 		} else {
 			model.addAttribute("popupMessage", "window.alert('Невірно.Спробуй_ще');");
 			int iterator = originWord.getIterator();
 			originWord.setIterator(++iterator);
 			wordService.update(originWord);
-			return learn(model);
+			return learn(originWord.getId(), engToRus, model);
 		}
 	}
-
+	
 //	@GetMapping("/learn")
-//	public String learnForm(
-//			@RequestParam(value = "id") int id, Model model) {
+//	public String learn(Model model) {
 //
-//		Word word = null;
-//		if (id == 0) {
-//			List<Word> translationWords = wordService.getAll();
-//			word = translationWords.stream()
-//					.min((word1, word2) -> Integer.compare(word1.getIterator(), word2.getIterator())).get();
-//		} else {
-//			word = wordService.get(id);
-//		}
+//		List<Word> words = wordService.getAll();
+//		Word word = words.stream()
+//				.min((word1, word2) -> Integer.compare(word1.getIterator(), word2.getIterator()))
+//				.get();
 //
 //		model.addAttribute("id", word.getId());
 //		model.addAttribute("eng", word.getEngWord());
@@ -135,18 +143,31 @@ public class ViewController {
 //	}
 
 	@GetMapping("/learn")
-	public String learn(Model model) {
+	public String learn(
+			@RequestParam(value = "id", required = false, defaultValue = "0") int id,
+			@RequestParam(value = "engToRus", required = false, defaultValue = "true") boolean engToRus, Model model) {
 
-		List<Word> words = wordService.getAll();
-		Word word = words.stream()
-				.min((word1, word2) -> Integer.compare(word1.getIterator(), word2.getIterator()))
-				.get();
+		Word word = null;
+		if (id == 0) {
+			List<Word> translationWords = wordService.getAll();
+			word = translationWords.stream()
+					.min((word1, word2) -> Integer.compare(word1.getIterator(), word2.getIterator()))
+					.get();
+		} else {
+			word = wordService.get(id);
+		}
 
 		model.addAttribute("id", word.getId());
-		model.addAttribute("eng", word.getEngWord());
-		// model.addAttribute("rus", translationWord.getRusWord());
+		if(engToRus){
+			model.addAttribute("eng", word.getEngWord());
+		} else {
+			model.addAttribute("rus", word.getRusWord());
+		}
+		
 		return "learn";
 	}
+
+
 	
 	@GetMapping("/delete")
 	public String delete(@RequestParam(value = "id") int id, Model model) {

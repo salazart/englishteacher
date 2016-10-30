@@ -32,6 +32,11 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	}
 	
 //	@Bean
+//	public WordService wordService() {
+//		return new WordService();
+//	}
+	
+//	@Bean
 //	public SessionFactory createSessionFactory() {
 //		ApplicationContext xmlContext = new ClassPathXmlApplicationContext("spring-context.xml");
 //		return xmlContext.getBean("sessionFactory", SessionFactory.class);

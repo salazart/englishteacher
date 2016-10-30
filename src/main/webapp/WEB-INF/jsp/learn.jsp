@@ -9,7 +9,7 @@
 <body onload=${popupMessage} onkeyup="hotkey(event)">
 	<form action="learn" method="post" >
 	<input type="hidden" name="id" value=${id}>
-		<table border="0" cellpadding="2" cellspacing="0" style="width: 480px">
+		<table border="0" cellpadding="2" cellspacing="0" style="width: 360px">
 			<tr>
 				<td>English:</td>
 				<td><input name="eng" type="text" size="14" value=${eng}></td>
@@ -20,6 +20,14 @@
 			</tr>
 			<tr>
 				<td>
+					<div>
+						<input type="checkbox" name="engToRus" value="true" />Eng-Rus<br />
+                    	<input type="checkbox" name="engToRus" value="false" />Rus-Eng<br />
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
 					<input name="save" type="submit" value="Проверить">
 				</td>
 			</tr>
@@ -27,3 +35,8 @@
 	</form>
 </body>
 </html>
+<script>
+$('input[type="checkbox"]').on('change', function() {
+	   $('input[type="checkbox"]').not(this).prop('checked', false);
+	});
+</script>

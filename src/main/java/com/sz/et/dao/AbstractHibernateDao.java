@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sz.et.interfaces.IHibernateDao;
 import com.sz.et.models.IEntity;
@@ -14,6 +15,10 @@ public abstract class AbstractHibernateDao<T extends IEntity> implements IHibern
 
 	@Autowired
 	protected SessionFactory sessionFactory;
+	
+	protected final Session getCurrentSession() {
+		return sessionFactory.getCurrentSession();
+	}
 	
 	protected Class<T> clazz;
 	
@@ -36,8 +41,19 @@ public abstract class AbstractHibernateDao<T extends IEntity> implements IHibern
 	}
 
 	@SuppressWarnings("unchecked")
+	@Transactional
 	@Override
 	public List<T> getAll() {
+//		List<T> objects = null;
+//		try {
+//			getCurrentSession().beginTransaction();
+//			objects = getCurrentSession().createQuery( "from " + clazz.getName()).getResultList();
+//		} catch (Exception e) {
+//			System.err.println(e);
+//		} finally {
+//			getCurrentSession().close();
+//		}
+//		return objects;
 		return sessionFactory.openSession()
 				.createQuery( "from " + clazz.getName())
 				.getResultList();
