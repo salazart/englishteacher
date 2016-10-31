@@ -48,7 +48,8 @@ public class ViewController {
 	public String test(Model model) {
 
 		List<Word> words = wordService.getAll();
-
+//		List<Word> words = wordService.getAllWords();
+		
 		model.addAttribute("words", words);
 		return "all";
 	}

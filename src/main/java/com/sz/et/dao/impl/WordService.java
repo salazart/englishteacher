@@ -6,7 +6,6 @@ import com.sz.et.models.Word;
 
 public class WordService extends AbstractHibernateDao<Word> implements IHibernateDao<Word>{
 
-	
 //	@Autowired
 //	public TranslationWordService(SessionFactory sessionFactory) {
 //		super(sessionFactory);

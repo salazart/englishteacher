@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.sz.et.dao.impl.WordService;
+import com.sz.et.interfaces.IHibernateDao;
 import com.sz.et.models.Word;
 import com.sz.et.services.AppConfig;
 
@@ -22,7 +23,7 @@ public class WordTest {
 		
 //		SessionFactory sessionFactory = xmlContext.getBean("localSessionFactory", SessionFactory.class);
 		
-		WordService wordService = context.getBean("wordService", WordService.class); 
+		IHibernateDao<Word> wordService = (WordService) context.getBean("wordService"); 
 //		IHibernateDao<TranslationWord> translationWordService = context.getBean(TranslationWordService.class); 
 //		IHibernateDao<TranslationWord> translationWordService = new TranslationWordService(HibernateUtil.getInstance().getSessionFactory());
 //		IHibernateDao<TranslationWord> translationWordService = new TranslationWordService(sessionFactory);//xmlContext.getBean("wordService", TranslationWordService.class);
