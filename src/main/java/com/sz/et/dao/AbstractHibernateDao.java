@@ -16,7 +16,11 @@ public abstract class AbstractHibernateDao<T extends IEntity> implements IHibern
 	protected SessionFactory sessionFactory;
 	
 	protected final Session getCurrentSession() {
-		return sessionFactory.getCurrentSession();
+		try {
+			return sessionFactory.getCurrentSession();
+		} catch (Exception e) {
+			return sessionFactory.openSession();
+		}
 	}
 	
 	protected Class<T> clazz;
@@ -52,9 +56,17 @@ public abstract class AbstractHibernateDao<T extends IEntity> implements IHibern
 //			getCurrentSession().close();
 //		}
 //		return objects;
-		return getCurrentSession()
-				.createQuery( "from " + clazz.getName())
-				.getResultList();
+		try {
+			getCurrentSession().beginTransaction();
+
+			return getCurrentSession().createQuery("from " + clazz.getName())
+					.getResultList();
+		} finally {
+			getCurrentSession().close();
+		}
+//		return getCurrentSession()
+//				.createQuery( "from " + clazz.getName())
+//				.getResultList();
 	}
 	
 	public T update(T entity){

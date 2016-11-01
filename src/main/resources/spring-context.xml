@@ -52,11 +52,5 @@
 	</bean>
 	
 	<bean id="wordService" class="com.sz.et.dao.impl.WordService"/>
-	
-    <tx:annotation-driven transaction-manager="txManager"/><!-- a PlatformTransactionManager is still required -->
-    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <!-- (this dependency is defined somewhere else) -->
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
 
 </beans>
