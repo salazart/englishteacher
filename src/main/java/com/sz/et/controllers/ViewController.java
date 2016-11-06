@@ -38,6 +38,7 @@ public class ViewController {
 	public String getWords(Model model) {
 
 		List<Word> words = wordService.getAll();
+//		List<Word> words = wordService.getWords();
 
 		model.addAttribute("words", words);
 
@@ -128,20 +129,6 @@ public class ViewController {
 			return learn(originWord.getId(), engToRus, model);
 		}
 	}
-	
-//	@GetMapping("/learn")
-//	public String learn(Model model) {
-//
-//		List<Word> words = wordService.getAll();
-//		Word word = words.stream()
-//				.min((word1, word2) -> Integer.compare(word1.getIterator(), word2.getIterator()))
-//				.get();
-//
-//		model.addAttribute("id", word.getId());
-//		model.addAttribute("eng", word.getEngWord());
-//		// model.addAttribute("rus", translationWord.getRusWord());
-//		return "learn";
-//	}
 
 	@GetMapping("/learn")
 	public String learn(
@@ -173,8 +160,7 @@ public class ViewController {
 	@GetMapping("/delete")
 	public String delete(@RequestParam(value = "id") int id, Model model) {
 
-		Word translationWord = wordService.get(id);
-		wordService.delete(translationWord);
+		wordService.delete(id);
 		return "all";
 	}
 

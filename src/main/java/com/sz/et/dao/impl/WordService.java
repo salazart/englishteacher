@@ -1,26 +1,40 @@
 package com.sz.et.dao.impl;
 
-import com.sz.et.dao.AbstractHibernateDao;
-import com.sz.et.interfaces.IHibernateDao;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sz.et.dao.GeneralDao;
 import com.sz.et.models.Word;
 
-public class WordService extends AbstractHibernateDao<Word> implements IHibernateDao<Word>{
-
-//	@Autowired
-//	public TranslationWordService(SessionFactory sessionFactory) {
-//		super(sessionFactory);
-//		// TODO Auto-generated constructor stub
-//	}
+@Service
+public class WordService {
 	
-//	public TranslationWordService(SessionFactory sessionFactory) {
-//		super(sessionFactory);
-//	}
+	@Autowired
+	private GeneralDao dao;
 
-//	@Autowired
-//	@Qualifier("localSessionFactory")
-//	protected SessionFactory sessionFactory;
-//	
-//	public void setSessionFactory(SessionFactory sessionFactory){
-//        this.sessionFactory = sessionFactory;
-//    }
+	public void setDao(GeneralDao dao) {
+		this.dao = dao;
+	}
+
+	public Word get(int id) {
+		return dao.get(id);
+	}
+
+	public void save(Word entity) {
+		dao.save(entity);
+	}
+
+	public void update(Word entity) {
+		dao.update(entity);
+	}
+
+	public void delete(int id) {
+		dao.delete(id);
+	}
+
+	public List<Word> getAll() {
+		return dao.getAll();
+	}
 }

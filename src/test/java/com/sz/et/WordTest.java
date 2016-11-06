@@ -14,7 +14,7 @@ public class WordTest {
 	private static ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 	
 	public static void main(String[] args) {
-//		Word word = new Word("word", "слово");
+//		Word word1 = new Word("word", "слово");
 //		Word word2 = new Word("hello", "привет");
 //		Word word3 = xmlContext.getBean("word3", Word.class);
 //		Word word4 = context.getBean("word3", Word.class);
@@ -22,11 +22,24 @@ public class WordTest {
 		
 //		SessionFactory sessionFactory = xmlContext.getBean("localSessionFactory", SessionFactory.class);
 		
-		WordService wordService = (WordService) context.getBean("wordService"); 
+		WordService wordService = context.getBean("wordService", WordService.class); 
+
+//		Word oneWord = wordService.get(4);
+//		System.out.println(oneWord);
+//		wordService.delete(4);
+//		wordService.save(word1);
+		Word oneWord = wordService.get(2);
+		System.out.println(oneWord);
+		
+		oneWord.setIterator(4);
+		wordService.update(oneWord);
+		
 		List<Word> words = wordService.getAll();
+		System.out.println(words.size());
 		for (Word word : words) {
 			System.out.println(word);
 		}
+		
 //		IHibernateDao<TranslationWord> translationWordService = context.getBean(TranslationWordService.class); 
 //		IHibernateDao<TranslationWord> translationWordService = new TranslationWordService(HibernateUtil.getInstance().getSessionFactory());
 //		IHibernateDao<TranslationWord> translationWordService = new TranslationWordService(sessionFactory);//xmlContext.getBean("wordService", TranslationWordService.class);
