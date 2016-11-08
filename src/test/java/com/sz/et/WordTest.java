@@ -31,8 +31,7 @@ public class WordTest {
 		Word oneWord = wordService.get(2);
 		System.out.println(oneWord);
 		
-		oneWord.setIterator(4);
-		wordService.update(oneWord);
+		wordService.updateCorrectIterator(oneWord);
 		
 		List<Word> words = wordService.getAll();
 		System.out.println(words.size());

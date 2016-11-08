@@ -11,7 +11,7 @@
 		<table border="0" cellpadding="2" cellspacing="0" style="width: 480px">
 			<tr>
 				<td>English:</td>
-				<td><input name="eng" type="text" size="14" value=""></td>
+				<td><input name="eng" type="text" size="14" value="" autofocus></td>
 			</tr>
 			<tr>
 				<td>Русский:</td>

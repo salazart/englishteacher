@@ -11,18 +11,20 @@
 	<input type="hidden" name="id" value=${id}>
 		<table border="0" cellpadding="2" cellspacing="0" style="width: 360px">
 			<tr>
-				<td>English:</td>
-				<td><input name="eng" type="text" size="14" value=${eng}></td>
+				Направление перевода:<br>
+				${wayTranslate}
 			</tr>
 			<tr>
-				<td>Русский:</td>
-				<td><input name="rus" type="text" size="14" value=${rus}></td>
+				<td><input name="exampleWord" type="text" size="20" value='${exampleWord}'></td>
+			</tr>
+			<tr>
+				<td><input name="translateWord" type="text" size="20" value='${translateWord}' autofocus></td>
 			</tr>
 			<tr>
 				<td>
 					<div>
-						<input type="checkbox" name="engToRus" value="true" />Eng-Rus<br />
-                    	<input type="checkbox" name="engToRus" value="false" />Rus-Eng<br />
+						<input type="checkbox" name="engToRus" value="true" ${engToRus == 'true' ? 'checked' : ''}/>Eng-Rus<br />
+                    	<input type="checkbox" name="engToRus" value="false"${engToRus == 'false' ? 'checked' : ''}/>Rus-Eng<br />
 					</div>
 				</td>
 			</tr>
@@ -35,8 +37,3 @@
 	</form>
 </body>
 </html>
-<script>
-$('input[type="checkbox"]').on('change', function() {
-	   $('input[type="checkbox"]').not(this).prop('checked', false);
-	});
-</script>

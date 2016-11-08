@@ -22,7 +22,7 @@ import com.sz.et.services.AppConfig;
 
 @Controller
 public class ViewController {
-
+	
 	@Autowired
 	private WordService wordService;
 	
@@ -36,21 +36,14 @@ public class ViewController {
 
 	@RequestMapping("/words")
 	public String getWords(Model model) {
-
 		List<Word> words = wordService.getAll();
-//		List<Word> words = wordService.getWords();
-
 		model.addAttribute("words", words);
-
 		return "words";
 	}
 
 	@RequestMapping("/all")
-	public String test(Model model) {
-
+	public String all(Model model) {
 		List<Word> words = wordService.getAll();
-//		List<Word> words = wordService.getAllWords();
-		
 		model.addAttribute("words", words);
 		return "all";
 	}
@@ -66,7 +59,6 @@ public class ViewController {
 		Word word4 = context.getBean("word3", Word.class);
 		
 		model.put("message", word4);
-//		model.put("message", this.message);
 		return "welcome";
 	}
 
@@ -107,28 +99,29 @@ public class ViewController {
 	@PostMapping("/learn")
 	public String learn(
 			@RequestParam(value = "id") int id, 
-			@RequestParam(value = "eng") String engWord,
-			@RequestParam(value = "rus") String rusWord, 
+			@RequestParam(value = "exampleWord") String exampleWord,
+			@RequestParam(value = "translateWord") String translateWord, 
 			@RequestParam(value = "engToRus", required = false, defaultValue = "true") boolean engToRus, Model model) {
 
 		Word originWord = wordService.get(id);
 
-		if (originWord.getEngWord().equals(engWord) && originWord.getRusWord().equals(rusWord)) {
+		if((engToRus && originWord.getEngWord().equals(exampleWord) && originWord.getRusWord().equals(translateWord))
+				|| !engToRus && originWord.getEngWord().equals(translateWord) && originWord.getRusWord().equals(exampleWord)){
+
 			model.addAttribute("popupMessage", "window.alert('Вірно')");
-			int iterator = originWord.getIterator();
-			originWord.setIterator(++iterator);
-			int corectIterator = originWord.getCorrectIterator();
-			originWord.setCorrectIterator(++corectIterator);
-			wordService.update(originWord);
+			wordService.updateCorrectIterator(originWord);
 			return learn(0, engToRus, model);
 		} else {
-			model.addAttribute("popupMessage", "window.alert('Невірно.Спробуй_ще');");
-			int iterator = originWord.getIterator();
-			originWord.setIterator(++iterator);
-			wordService.update(originWord);
+			model.addAttribute("popupMessage", "window.alert('" + "Невірно.Спробуй_ще."  + "');");
+			wordService.updateInCorrectIterator(originWord);
 			return learn(originWord.getId(), engToRus, model);
 		}
 	}
+	
+//	private String getIncorrectMessage(String translateWord) {
+//		final String INCORRECT_MESSAGE = "Невірно.Спробуй_ще.";
+//		return translateWord.isEmpty() ? INCORRECT_MESSAGE + "_Відповідь:" + 
+//	}
 
 	@GetMapping("/learn")
 	public String learn(
@@ -146,11 +139,9 @@ public class ViewController {
 		}
 
 		model.addAttribute("id", word.getId());
-		if(engToRus){
-			model.addAttribute("eng", word.getEngWord());
-		} else {
-			model.addAttribute("rus", word.getRusWord());
-		}
+		model.addAttribute("exampleWord", engToRus ? word.getEngWord() : word.getRusWord());
+		model.addAttribute("engToRus", engToRus ? "true" : "false");
+		model.addAttribute("wayTranslate", engToRus ? "Англо-русский" : "Русско-английский");
 		
 		return "learn";
 	}

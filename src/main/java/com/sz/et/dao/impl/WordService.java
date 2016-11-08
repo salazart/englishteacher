@@ -26,15 +26,25 @@ public class WordService {
 		dao.save(entity);
 	}
 
-	public void update(Word entity) {
-		dao.update(entity);
-	}
-
 	public void delete(int id) {
 		dao.delete(id);
 	}
 
 	public List<Word> getAll() {
 		return dao.getAll();
+	}
+
+	public void updateCorrectIterator(Word originWord) {
+		int iterator = originWord.getIterator();
+		originWord.setIterator(++iterator);
+		int corectIterator = originWord.getCorrectIterator();
+		originWord.setCorrectIterator(++corectIterator);
+		dao.update(originWord);
+	}
+
+	public void updateInCorrectIterator(Word originWord) {
+		int iterator = originWord.getIterator();
+		originWord.setIterator(++iterator);
+		dao.update(originWord);
 	}
 }
