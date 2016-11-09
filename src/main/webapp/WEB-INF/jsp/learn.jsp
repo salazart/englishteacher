@@ -7,8 +7,8 @@
 <title>Input new word</title>
 </head>
 <body onload=${popupMessage} onkeyup="hotkey(event)">
-	<form action="learn" method="post" >
-	<input type="hidden" name="id" value=${id}>
+	<form id='frm' action="learn" method="post" >
+	<input id="id" type="hidden" name="id" value=${id}>
 		<table border="0" cellpadding="2" cellspacing="0" style="width: 360px">
 			<tr>
 				Направление перевода:<br>
@@ -23,8 +23,8 @@
 			<tr>
 				<td>
 					<div>
-						<input type="checkbox" name="engToRus" value="true" ${engToRus == 'true' ? 'checked' : ''}/>Eng-Rus<br />
-                    	<input type="checkbox" name="engToRus" value="false"${engToRus == 'false' ? 'checked' : ''}/>Rus-Eng<br />
+						<input id='engCheck' type="checkbox" name="engToRus" value="true" onclick="changeCheck(1)" ${engToRus == 'true' ? 'checked' : ''}/>Eng-Rus<br />
+                    	<input id='rusCheck' type="checkbox" name="engToRus" value="false" onclick="changeCheck(2)" ${engToRus == 'false' ? 'checked' : ''}/>Rus-Eng<br />
 					</div>
 				</td>
 			</tr>
@@ -37,3 +37,22 @@
 	</form>
 </body>
 </html>
+<script type="text/javascript">
+function changeCheck(type) {
+	var engCheck = document.getElementById('engCheck');
+	var rusCheck = document.getElementById('rusCheck');
+	if(type == 1 && engCheck.checked == true){
+		rusCheck.checked = false;
+	} else {
+		rusCheck.checked = true;
+	} 
+	
+	if(type = 2 && rusCheck.checked == true){
+		engCheck.checked = false;
+	} else {
+		engCheck.checked = true;	
+	}
+	document.getElementById('id').value = 0;
+	document.getElementById('frm').submit();
+};
+</script>

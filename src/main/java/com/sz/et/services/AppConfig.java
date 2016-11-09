@@ -28,7 +28,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
 	public Word translationWord() {
-		return new Word("take", "брать");
+		return new Word("take", "брать", true);
 	}
 	
 //	@Bean

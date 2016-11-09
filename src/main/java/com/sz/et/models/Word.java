@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -21,10 +22,10 @@ public class Word implements IEntity{
 	private int id;
 	
 	@Column(name = "eng")
-	private String engWord;
+	private String exampleWord;
 	
 	@Column(name = "rus")
-	private String rusWord;
+	private String translateWord;
 	
 	@Column(name = "iterator")
 	private int iterator;
@@ -32,45 +33,46 @@ public class Word implements IEntity{
 	@Column(name = "correct_iterator")
 	private int correctIterator;
 	
+	@Transient
+	private boolean engToRus = true;
+	
 	public Word() {}
 	
-	public Word(String engWord, String rusWord) {
-		setEngWord(engWord);
-		setRusWord(rusWord);
+	public Word(String exampleWord, String translateWord, boolean engToRus) {
+		setExampleWord(exampleWord);
+		setTranslateWord(translateWord);
+		setEngToRus(engToRus);
 	}
 
 	public String toString() {
 		StringJoiner joiner = new StringJoiner(", ");
 		joiner.add("id:" + String.valueOf(getId()))
-		.add("eng:" + getEngWord())
-		.add("rus:" + getRusWord())
+		.add("exampleWord:" + getExampleWord())
+		.add("translateWord:" + getTranslateWord())
 		.add(String.valueOf(getIterator()))
 		.add(String.valueOf(getCorrectIterator()));
 		return joiner.toString();
 	}
+	public void setEngToRus(boolean engToRus) {
+		this.engToRus = engToRus;
+	}
 	
+	public void setExampleWord(String exampleWord) {
+		this.exampleWord = exampleWord;
+	}
+	public String getExampleWord() {
+		return engToRus ? exampleWord : translateWord;
+	}
+	public void setTranslateWord(String translateWord) {
+		this.translateWord = translateWord;
+	}
+	public String getTranslateWord() {
+		return engToRus ? translateWord : exampleWord;
+	}
 	@Override
 	public int getId() {
 		return id;
 	}
-
-	public String getEngWord() {
-		return engWord;
-	}
-
-	public void setEngWord(String engWord) {
-		this.engWord = engWord;
-	}
-
-	public String getRusWord() {
-		return rusWord;
-	}
-
-
-	public void setRusWord(String rusWord) {
-		this.rusWord = rusWord;
-	}
-
 
 	public int getIterator() {
 		return iterator;

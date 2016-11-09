@@ -14,10 +14,6 @@ public class WordService {
 	@Autowired
 	private GeneralDao dao;
 
-	public void setDao(GeneralDao dao) {
-		this.dao = dao;
-	}
-
 	public Word get(int id) {
 		return dao.get(id);
 	}
@@ -35,6 +31,7 @@ public class WordService {
 	}
 
 	public void updateCorrectIterator(Word originWord) {
+		originWord.setEngToRus(true);
 		int iterator = originWord.getIterator();
 		originWord.setIterator(++iterator);
 		int corectIterator = originWord.getCorrectIterator();
@@ -43,6 +40,7 @@ public class WordService {
 	}
 
 	public void updateInCorrectIterator(Word originWord) {
+		originWord.setEngToRus(true);
 		int iterator = originWord.getIterator();
 		originWord.setIterator(++iterator);
 		dao.update(originWord);

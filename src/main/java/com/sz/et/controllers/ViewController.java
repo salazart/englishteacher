@@ -79,7 +79,7 @@ public class ViewController {
 			@RequestParam(value = "rus") String rusWord,
 			Model model) {
 
-		Word translationWord = new Word(engWord, rusWord);
+		Word translationWord = new Word(engWord, rusWord, true);
 		wordService.save(translationWord);
 
 		if (translationWord.getId() != 0) {
@@ -103,26 +103,28 @@ public class ViewController {
 			@RequestParam(value = "translateWord") String translateWord, 
 			@RequestParam(value = "engToRus", required = false, defaultValue = "true") boolean engToRus, Model model) {
 
+		if(id == 0){
+			return learn(0, engToRus, model);
+		}
+			
 		Word originWord = wordService.get(id);
+		originWord.setEngToRus(engToRus);
 
-		if((engToRus && originWord.getEngWord().equals(exampleWord) && originWord.getRusWord().equals(translateWord))
-				|| !engToRus && originWord.getEngWord().equals(translateWord) && originWord.getRusWord().equals(exampleWord)){
-
+		if(originWord.getExampleWord().equals(exampleWord) && originWord.getTranslateWord().equals(translateWord)){
 			model.addAttribute("popupMessage", "window.alert('Вірно')");
 			wordService.updateCorrectIterator(originWord);
 			return learn(0, engToRus, model);
+		} else if (translateWord.isEmpty()){
+			model.addAttribute("popupMessage", "window.alert('Невірно.Спробуй_ще._Відповідь:_" + originWord.getTranslateWord() + "_');");
+			wordService.updateInCorrectIterator(originWord);
+			return learn(originWord.getId(), engToRus, model);
 		} else {
-			model.addAttribute("popupMessage", "window.alert('" + "Невірно.Спробуй_ще."  + "');");
+			model.addAttribute("popupMessage", "window.alert('Невірно.Спробуй_ще.');");
 			wordService.updateInCorrectIterator(originWord);
 			return learn(originWord.getId(), engToRus, model);
 		}
 	}
 	
-//	private String getIncorrectMessage(String translateWord) {
-//		final String INCORRECT_MESSAGE = "Невірно.Спробуй_ще.";
-//		return translateWord.isEmpty() ? INCORRECT_MESSAGE + "_Відповідь:" + 
-//	}
-
 	@GetMapping("/learn")
 	public String learn(
 			@RequestParam(value = "id", required = false, defaultValue = "0") int id,
@@ -139,7 +141,7 @@ public class ViewController {
 		}
 
 		model.addAttribute("id", word.getId());
-		model.addAttribute("exampleWord", engToRus ? word.getEngWord() : word.getRusWord());
+		model.addAttribute("exampleWord", engToRus ? word.getExampleWord() : word.getTranslateWord());
 		model.addAttribute("engToRus", engToRus ? "true" : "false");
 		model.addAttribute("wayTranslate", engToRus ? "Англо-русский" : "Русско-английский");
 		

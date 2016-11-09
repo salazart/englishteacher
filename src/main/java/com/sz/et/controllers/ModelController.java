@@ -10,6 +10,6 @@ import com.sz.et.models.Word;
 public class ModelController {
 	@RequestMapping("/eng")
 	public Word getEng(@RequestParam(value="word", defaultValue="World") String word){
-		return new Word(word, "hello");
+		return new Word(word, "hello", true);
 	}
 }

@@ -22,8 +22,8 @@
  <c:forEach items="${words}" var="word">
   <tr>
    <td><c:out value="${word.id}" /></td>
-   <td><c:out value="${word.engWord}" /></td>
-   <td><c:out value="${word.rusWord}" /></td>
+   <td><c:out value="${word.exampleWord}" /></td>
+   <td><c:out value="${word.translateWord}" /></td>
    <td><c:out value="${word.iterator}" /></td>
    <td><c:out value="${word.correctIterator}" /></td>
   </tr>

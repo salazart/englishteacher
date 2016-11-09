@@ -14,18 +14,9 @@
 	<context:annotation-config />
 
 	<bean id="word3" class="com.sz.et.models.Word">
-		<property name="engWord" value="bye" />
-		<property name="rusWord" value="до свидания" />
-	</bean>
-
-	<bean id="word5" class="com.sz.et.models.Word">
-		<property name="engWord" value="constructor" />
-		<property name="rusWord" value="конструктор" />
-	</bean>
-
-	<bean id="word6" class="com.sz.et.models.Word">
-		<constructor-arg name="engWord" value="see" />
-		<constructor-arg name="rusWord" value="видеть" />
+		<property name="exampleWord" value="bye" />
+		<property name="translateWord" value="до свидания" />
+		<property name="engToRus" value="true" />
 	</bean>
 
 	<context:property-placeholder location='database.properties' />
