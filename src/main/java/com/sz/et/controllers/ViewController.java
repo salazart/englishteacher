@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sz.et.dao.impl.WordService;
+import com.sz.et.interfaces.IWordService;
 import com.sz.et.models.Word;
 import com.sz.et.services.AppConfig;
 
@@ -24,7 +24,7 @@ import com.sz.et.services.AppConfig;
 public class ViewController {
 	
 	@Autowired
-	private WordService wordService;
+	private IWordService wordService;
 	
 	@RequestMapping("/general")
 	public String general(

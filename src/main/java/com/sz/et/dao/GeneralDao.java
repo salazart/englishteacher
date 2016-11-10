@@ -1,5 +1,6 @@
 package com.sz.et.dao;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -7,27 +8,28 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sz.et.interfaces.IDao;
+import com.sz.et.models.IEntity;
 import com.sz.et.models.Word;
 
-public class GeneralDao{
+public class GeneralDao<T extends IEntity> implements IDao<T>{
 
 	@PersistenceContext
 	private EntityManager em;
 	
-//	protected Class<T> clazz;
-//	
-//	@SuppressWarnings("unchecked")
-//	public GeneralDao() {
-//		this.clazz = (Class<T>) ((ParameterizedType) getClass()
-//				.getGenericSuperclass()).getActualTypeArguments()[0];
-//	}
+	protected Class<? extends T> clazz;
 	
-	public Word get(int id){
-		return em.find(Word.class, id);
+	public GeneralDao() {
+		this.clazz = (Class<T>) ((ParameterizedType) getClass()
+				.getGenericSuperclass()).getActualTypeArguments()[0];
+	}
+	
+	public T get(int id){
+		return em.find(clazz, id);
 	}
 	
 	@Transactional
-	public void save(Word entity) {
+	public void save(T entity) {
 		em.persist(entity);
 	}
 
@@ -38,12 +40,13 @@ public class GeneralDao{
 	
 	@Transactional
 	public void delete(int id){
-		Word entity = em.getReference(Word.class, id);
+		T entity = em.getReference(clazz, id);
 		em.remove(entity);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Word> getAll() {
-		return em.createQuery("from Word").getResultList();
+	public List<T> getAll() {
+		return em.createQuery("from " + clazz.getName()).getResultList();
 	}
+
 }

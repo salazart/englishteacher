@@ -7,6 +7,8 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import com.sz.et.dao.impl.WordService;
+import com.sz.et.interfaces.IWordService;
 import com.sz.et.models.Word;
 
 @Configuration
@@ -30,6 +32,22 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	public Word word1() {
 		return new Word("hello", "привет", true);
 	}
+
+	@Bean
+	public IWordService wordService() {
+		return new WordService();
+	}
+	
+//	@Bean
+//	public WordService wordService() {
+//		return new WordService();
+//	}
+	
+//	@Bean
+//	public GeneralDao<?> generalDao() {
+//		return new GeneralDao<>();
+//	}
+	
 	
 	
 	

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.sz.et.dao.impl.WordService;
+import com.sz.et.interfaces.IWordService;
 import com.sz.et.models.Word;
 import com.sz.et.services.AppConfig;
 
@@ -17,15 +17,15 @@ public class WordTest {
 		
 //		SessionFactory sessionFactory = xmlContext.getBean("localSessionFactory", SessionFactory.class);
 		
-		Word word1 = context.getBean(Word.class);
-		WordService wordService = context.getBean("wordService", WordService.class); 
+//		Word word1 = context.getBean(Word.class);
+		IWordService wordService = context.getBean(IWordService.class); 
 
 //		Word oneWord = wordService.get(4);
 //		System.out.println(oneWord);
 //		wordService.delete(4);
 //		wordService.save(word1);
-		wordService.save(word1);
-		System.out.println(word1);
+//		wordService.save(word1);
+//		System.out.println(word1);
 		
 //		wordService.updateCorrectIterator(oneWord);
 		

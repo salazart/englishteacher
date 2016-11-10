@@ -2,44 +2,41 @@ package com.sz.et.dao.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import com.sz.et.dao.GeneralDao;
+import com.sz.et.interfaces.IWordService;
 import com.sz.et.models.Word;
 
-@Service
-public class WordService {
+@Repository
+public class WordService extends GeneralDao<Word> implements IWordService{
 	
-	@Autowired
-	private GeneralDao dao;
-
 	public Word get(int id) {
-		return dao.get(id);
+		return super.get(id);
 	}
 
 	public void save(Word entity) {
-		dao.save(entity);
+		super.save(entity);
 	}
 
 	public void delete(int id) {
-		dao.delete(id);
+		super.delete(id);
 	}
 
 	public List<Word> getAll() {
-		return dao.getAll();
+		return super.getAll();
 	}
 
 	public void updateCorrectIterator(Word originWord) {
 		originWord.setEngToRus(true);
 		originWord.updateCorrectStatus();
-		dao.update(originWord);
+		super.update(originWord);
 	}
 
 	public void updateInCorrectIterator(Word originWord) {
 		originWord.setEngToRus(true);
 		originWord.updateInCorrectStatus();
-		dao.update(originWord);
+		super.update(originWord);
 	}
 	
 //	LocalDate localDate = LocalDate.
