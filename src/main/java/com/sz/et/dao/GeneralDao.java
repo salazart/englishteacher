@@ -12,6 +12,7 @@ import com.sz.et.interfaces.IDao;
 import com.sz.et.models.IEntity;
 import com.sz.et.models.Word;
 
+@Transactional
 public class GeneralDao<T extends IEntity> implements IDao<T>{
 
 	@PersistenceContext
@@ -28,17 +29,14 @@ public class GeneralDao<T extends IEntity> implements IDao<T>{
 		return em.find(clazz, id);
 	}
 	
-	@Transactional
 	public void save(T entity) {
 		em.persist(entity);
 	}
 
-	@Transactional
 	public void update(Word entity){
 		em.merge(entity);
 	}
 	
-	@Transactional
 	public void delete(int id){
 		T entity = em.getReference(clazz, id);
 		em.remove(entity);
@@ -46,7 +44,8 @@ public class GeneralDao<T extends IEntity> implements IDao<T>{
 	
 	@SuppressWarnings("unchecked")
 	public List<T> getAll() {
-		return em.createQuery("from " + clazz.getName()).getResultList();
+		return em.createQuery("from " + clazz.getName())
+				.getResultList();
 	}
 
 }

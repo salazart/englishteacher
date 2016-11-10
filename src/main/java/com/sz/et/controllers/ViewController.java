@@ -140,7 +140,6 @@ public class ViewController {
 			word = wordService.get(id);
 		}
 
-		model.addAttribute("id", word.getId());
 		model.addAttribute("word", word);
 		model.addAttribute("engToRus", engToRus ? "true" : "false");
 		
