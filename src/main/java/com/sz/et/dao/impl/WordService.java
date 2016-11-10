@@ -32,17 +32,19 @@ public class WordService {
 
 	public void updateCorrectIterator(Word originWord) {
 		originWord.setEngToRus(true);
-		int iterator = originWord.getIterator();
-		originWord.setIterator(++iterator);
-		int corectIterator = originWord.getCorrectIterator();
-		originWord.setCorrectIterator(++corectIterator);
+		originWord.updateCorrectStatus();
 		dao.update(originWord);
 	}
 
 	public void updateInCorrectIterator(Word originWord) {
 		originWord.setEngToRus(true);
-		int iterator = originWord.getIterator();
-		originWord.setIterator(++iterator);
+		originWord.updateInCorrectStatus();
 		dao.update(originWord);
 	}
+	
+//	LocalDate localDate = LocalDate.
+//	LocalDate localDate = LocalDate.now();
+//	localDate.plusDays(1);
+//	Date date = Date.valueOf(localDate);
+//	new Date(Calendar.getInstance().getTimeInMillis());
 }

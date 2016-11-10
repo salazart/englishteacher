@@ -16,16 +16,16 @@
   <td width="50">Id</td>
   <td width="150">English</td>
   <td width="150">Russian</td>
-  <td width="50">Iterator</td>
-  <td width="50">Right iterator</td>
+  <td width="50">FutureLearnDate</td>
+  <td width="50">RepeatRange</td>
  </tr>
  <c:forEach items="${words}" var="word">
   <tr>
    <td><c:out value="${word.id}" /></td>
    <td><c:out value="${word.exampleWord}" /></td>
    <td><c:out value="${word.translateWord}" /></td>
-   <td><c:out value="${word.iterator}" /></td>
-   <td><c:out value="${word.correctIterator}" /></td>
+   <td><c:out value="${word.futureLearnDate}" /></td>
+   <td><c:out value="${word.repeatRange}" /></td>
   </tr>
  </c:forEach>
 </table>

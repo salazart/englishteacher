@@ -134,16 +134,15 @@ public class ViewController {
 		if (id == 0) {
 			List<Word> translationWords = wordService.getAll();
 			word = translationWords.stream()
-					.min((word1, word2) -> Integer.compare(word1.getIterator(), word2.getIterator()))
+					.min((word1, word2) -> Integer.compare(word1.getRepeatRange(), word2.getRepeatRange()))
 					.get();
 		} else {
 			word = wordService.get(id);
 		}
 
 		model.addAttribute("id", word.getId());
-		model.addAttribute("exampleWord", engToRus ? word.getExampleWord() : word.getTranslateWord());
+		model.addAttribute("word", word);
 		model.addAttribute("engToRus", engToRus ? "true" : "false");
-		model.addAttribute("wayTranslate", engToRus ? "Англо-русский" : "Русско-английский");
 		
 		return "learn";
 	}

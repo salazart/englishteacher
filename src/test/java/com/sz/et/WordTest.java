@@ -14,24 +14,20 @@ public class WordTest {
 	private static ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 	
 	public static void main(String[] args) {
-//		Word word1 = new Word("word", "слово");
-//		Word word2 = new Word("hello", "привет");
-//		Word word3 = xmlContext.getBean("word3", Word.class);
-//		Word word4 = context.getBean("word3", Word.class);
-//		Word word5 = xmlContext.getBean("word5", Word.class);
 		
 //		SessionFactory sessionFactory = xmlContext.getBean("localSessionFactory", SessionFactory.class);
 		
+		Word word1 = context.getBean(Word.class);
 		WordService wordService = context.getBean("wordService", WordService.class); 
 
 //		Word oneWord = wordService.get(4);
 //		System.out.println(oneWord);
 //		wordService.delete(4);
 //		wordService.save(word1);
-		Word oneWord = wordService.get(2);
-		System.out.println(oneWord);
+		wordService.save(word1);
+		System.out.println(word1);
 		
-		wordService.updateCorrectIterator(oneWord);
+//		wordService.updateCorrectIterator(oneWord);
 		
 		List<Word> words = wordService.getAll();
 		System.out.println(words.size());

@@ -12,10 +12,10 @@
 		<table border="0" cellpadding="2" cellspacing="0" style="width: 360px">
 			<tr>
 				Направление перевода:<br>
-				${wayTranslate}
+				${engToRus ? "Англо-русский" : "Русско-английский"}
 			</tr>
 			<tr>
-				<td><input name="exampleWord" type="text" size="20" value='${exampleWord}'></td>
+				<td><input name="exampleWord" type="text" size="20" value='${engToRus ? word.exampleWord : word.translateWord}'></td>
 			</tr>
 			<tr>
 				<td><input name="translateWord" type="text" size="20" value='${translateWord}' autofocus></td>
