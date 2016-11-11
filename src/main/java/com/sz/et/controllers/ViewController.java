@@ -5,16 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.sz.et.interfaces.IWordService;
 import com.sz.et.models.Word;
@@ -26,32 +23,14 @@ public class ViewController {
 	@Autowired
 	private IWordService wordService;
 	
-	@RequestMapping("/general")
-	public String general(
-			@RequestParam(value = "name", required = false, defaultValue = "World") String name, Model model) {
-		
-		model.addAttribute("name", name);
-		return "greeting";
-	}
-
-	@RequestMapping("/words")
-	public String getWords(Model model) {
-		List<Word> words = wordService.getAll();
-		model.addAttribute("words", words);
-		return "words";
-	}
-
-	@RequestMapping("/all")
+	@RequestMapping(value="/all", method = RequestMethod.GET)
 	public String all(Model model) {
 		List<Word> words = wordService.getAll();
 		model.addAttribute("words", words);
 		return "all";
 	}
 
-	@Value("${application.message:Hello World}")
-	private String message = "Hello World";
-
-	@GetMapping("/")
+	@RequestMapping(value="/", method = RequestMethod.GET)
 	public String welcome(Map<String, Object> model) {
 		model.put("time", new Date());
 		
@@ -62,18 +41,7 @@ public class ViewController {
 		return "welcome";
 	}
 
-	@RequestMapping("/hello")
-	public ModelAndView hello() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("welcome");
-
-		String str = "Hello World!";
-		mav.addObject("message", str);
-
-		return mav;
-	}
-
-	@PostMapping("/save")
+	@RequestMapping(value="/save", method = RequestMethod.POST)
 	public String save(
 			@RequestParam(value = "eng") String engWord, 
 			@RequestParam(value = "rus") String rusWord,
@@ -91,12 +59,12 @@ public class ViewController {
 		return saveForm(model);
 	}
 
-	@GetMapping("/save")
+	@RequestMapping(value="/save", method = RequestMethod.GET)
 	public String saveForm(Model model) {
 		return "save";
 	}
 
-	@PostMapping("/learn")
+	@RequestMapping(value="/learn", method = RequestMethod.POST)
 	public String learn(
 			@RequestParam(value = "id") int id, 
 			@RequestParam(value = "exampleWord") String exampleWord,
@@ -125,7 +93,7 @@ public class ViewController {
 		}
 	}
 	
-	@GetMapping("/learn")
+	@RequestMapping(value="/learn", method = RequestMethod.GET)
 	public String learn(
 			@RequestParam(value = "id", required = false, defaultValue = "0") int id,
 			@RequestParam(value = "engToRus", required = false, defaultValue = "true") boolean engToRus, Model model) {
@@ -148,7 +116,7 @@ public class ViewController {
 
 
 	
-	@GetMapping("/delete")
+	@RequestMapping(value="/delete", method = RequestMethod.POST)
 	public String delete(@RequestParam(value = "id") int id, Model model) {
 
 		wordService.delete(id);

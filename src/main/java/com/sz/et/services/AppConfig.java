@@ -1,10 +1,17 @@
 package com.sz.et.services;
 
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
+import org.apache.commons.dbcp.BasicDataSource;
+import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.sz.et.dao.impl.WordService;
@@ -13,13 +20,9 @@ import com.sz.et.models.Word;
 
 @Configuration
 @ImportResource("classpath:spring-context.xml")
-public class AppConfig extends WebMvcConfigurerAdapter {
+@EnableTransactionManagement
+public class AppConfig {
 
-	@Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		configurer.enable();
-	}
-	
 	@Bean
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -36,6 +39,36 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public IWordService wordService() {
 		return new WordService();
+	}
+	
+	@Bean
+	public JpaTransactionManager jpaTransMan(){
+		JpaTransactionManager jtManager = new JpaTransactionManager(
+				getEntityManagerFactoryBean().getObject());
+		return jtManager;
+	}
+	
+	@Bean
+	public LocalContainerEntityManagerFactoryBean getEntityManagerFactoryBean(){
+		LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+		localContainerEntityManagerFactoryBean.setDataSource(getDataSource());
+		localContainerEntityManagerFactoryBean.setPersistenceProvider(new HibernatePersistenceProvider());
+		localContainerEntityManagerFactoryBean.setPackagesToScan("com.sz.et.models");
+		Properties jpaProperties = new Properties();
+		jpaProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+		jpaProperties.setProperty("hibernate.show_sql", "true");
+		localContainerEntityManagerFactoryBean.setJpaProperties(jpaProperties);
+		return localContainerEntityManagerFactoryBean;
+	}
+	
+	@Bean
+	public DataSource getDataSource() {
+		BasicDataSource dataSource = new BasicDataSource();
+	    dataSource.setDriverClassName("org.h2.Driver");
+	    dataSource.setUrl("jdbc:h2:~/sample");
+	    dataSource.setUsername("sa");
+	    dataSource.setPassword("");
+	    return dataSource;
 	}
 	
 //	@Bean
