@@ -13,6 +13,6 @@
 
 	<context:annotation-config />
 
-	<context:property-placeholder location='database.properties' />
+	<context:property-placeholder location="classpath:database.properties"/>
 
 </beans>

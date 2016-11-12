@@ -37,7 +37,30 @@ public class Word implements IEntity{
 	@Transient
 	private boolean engToRus = true;
 	
+	public boolean isEqual(Object object){
+		if(object == null){
+			return false;
+		} else if(!(object instanceof Word)){
+			return false;
+		} else if(((Word) object).getEngToRus() != getEngToRus()){
+			return false;
+		} else if(((Word) object).getId() != getId()){
+			return false;
+		} else if(!((Word) object).getExampleWord().equals(getExampleWord())){
+			return false;
+		} else if(!((Word) object).getTranslateWord().equals(getTranslateWord())){
+			return false;
+		} else if(((Word) object).getRepeatRange() != getRepeatRange()){
+			return false;
+		} else if(((Word) object).getFutureLearnDate() != getFutureLearnDate()){
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	public Word() {
+		setEngToRus(true);
 		setRepeatRange(0);
 		setFutureLearnDate(Calendar.getInstance().getTimeInMillis());
 	}
@@ -48,12 +71,13 @@ public class Word implements IEntity{
 		setTranslateWord(translateWord);
 		setEngToRus(engToRus);
 	}
-
+	
 	public String toString() {
 		StringJoiner joiner = new StringJoiner(", ");
 		joiner.add("id:" + String.valueOf(getId()))
 		.add("exampleWord:" + getExampleWord())
 		.add("translateWord:" + getTranslateWord())
+		.add("engToRus:" + getEngToRus())
 		.add(String.valueOf(getFutureLearnDate()))
 		.add(String.valueOf(getRepeatRange()));
 		return joiner.toString();
@@ -102,6 +126,9 @@ public class Word implements IEntity{
 	}
 	public void setEngToRus(boolean engToRus) {
 		this.engToRus = engToRus;
+	}
+	public boolean getEngToRus() {
+		return this.engToRus;
 	}
 	
 	public void setExampleWord(String exampleWord) {

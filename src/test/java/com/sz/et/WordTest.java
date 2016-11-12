@@ -29,12 +29,14 @@ public class WordTest {
 		
 //		wordService.updateCorrectIterator(oneWord);
 		
-		List<Word> words = wordService.getAll();
+		List<Word> words = wordService.getLearnWords();
 		System.out.println(words.size());
 		for (Word word : words) {
 			System.out.println(word);
 		}
 		
+		Word word = wordService.getNextWord();
+		System.out.println(word);
 //		IHibernateDao<TranslationWord> translationWordService = context.getBean(TranslationWordService.class); 
 //		IHibernateDao<TranslationWord> translationWordService = new TranslationWordService(HibernateUtil.getInstance().getSessionFactory());
 //		IHibernateDao<TranslationWord> translationWordService = new TranslationWordService(sessionFactory);//xmlContext.getBean("wordService", TranslationWordService.class);

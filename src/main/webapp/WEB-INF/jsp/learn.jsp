@@ -15,7 +15,7 @@
 				${engToRus ? "Англо-русский" : "Русско-английский"}
 			</tr>
 			<tr>
-				<td><input name="exampleWord" type="text" size="20" value='${engToRus ? word.exampleWord : word.translateWord}'></td>
+				<td><input name="exampleWord" type="text" size="20" value='${word.exampleWord}'></td>
 			</tr>
 			<tr>
 				<td><input name="translateWord" type="text" size="20" value='${translateWord}' autofocus></td>

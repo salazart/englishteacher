@@ -6,6 +6,7 @@ import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.jpa.HibernatePersistenceProvider;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
@@ -22,6 +23,23 @@ import com.sz.et.models.Word;
 @ImportResource("classpath:spring-context.xml")
 @EnableTransactionManagement
 public class AppConfig {
+
+//	@Bean
+//	public PropertySourcesPlaceholderConfigurer placeHolderConfigurer() {
+//		return new PropertySourcesPlaceholderConfigurer();
+//	}
+	
+	@Value("${db.driverClassName}")
+	private String driver;
+
+	@Value("${db.url}")
+	private String url;
+	
+	@Value("${db.username}")
+	private String user;
+	
+	@Value("${db.password}")
+	private String pass;
 
 	@Bean
     public InternalResourceViewResolver viewResolver() {
@@ -42,10 +60,20 @@ public class AppConfig {
 	}
 	
 	@Bean
-	public JpaTransactionManager jpaTransMan(){
-		JpaTransactionManager jtManager = new JpaTransactionManager(
+	public DataSource getDataSource(){
+		BasicDataSource dataSource = new BasicDataSource();
+	    dataSource.setDriverClassName(driver);
+	    dataSource.setUrl(url);
+	    dataSource.setUsername(user);
+	    dataSource.setPassword(pass);
+	    return dataSource;
+	}
+	
+	@Bean
+	public JpaTransactionManager transactionManager(){
+		JpaTransactionManager transactionManager = new JpaTransactionManager(
 				getEntityManagerFactoryBean().getObject());
-		return jtManager;
+		return transactionManager;
 	}
 	
 	@Bean
@@ -61,15 +89,6 @@ public class AppConfig {
 		return localContainerEntityManagerFactoryBean;
 	}
 	
-	@Bean
-	public DataSource getDataSource() {
-		BasicDataSource dataSource = new BasicDataSource();
-	    dataSource.setDriverClassName("org.h2.Driver");
-	    dataSource.setUrl("jdbc:h2:~/sample");
-	    dataSource.setUsername("sa");
-	    dataSource.setPassword("");
-	    return dataSource;
-	}
 	
 //	@Bean
 //	public WordService wordService() {
