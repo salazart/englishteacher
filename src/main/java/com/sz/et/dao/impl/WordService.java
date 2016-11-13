@@ -36,14 +36,24 @@ public class WordService extends GeneralDao<Word> implements IWordService{
 	public List<Word> getAll() {
 		return super.getAll();
 	}
-
+	
 	@Override
 	public Word getNextWord() {
 		if(words.isEmpty()){
 			List<Word> newWords = getLearnWords();
 			newWords.forEach(word -> word.setEngToRus(true));
 			words.addAll(newWords);
-			newWords.forEach(word -> word.setEngToRus(false));
+			
+			for (int i = 0; i < newWords.size(); i++) {
+				try {
+					Word cloneWord = newWords.get(i).clone();
+					cloneWord.setEngToRus(false);
+					newWords.set(i, cloneWord);
+				} catch (CloneNotSupportedException e) {
+					System.err.println(e);
+				}
+			}
+				
 			words.addAll(newWords);
 			System.out.println("words is loaded count words are: " + words.size());
 		}

@@ -14,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table( name = "words" )
-public class Word implements IEntity{
+public class Word implements IEntity, Cloneable{
 	
 	@Id
 	@GeneratedValue(generator="increment")
@@ -36,6 +36,10 @@ public class Word implements IEntity{
 	
 	@Transient
 	private boolean engToRus = true;
+	
+	public Word clone() throws CloneNotSupportedException {
+        return (Word)super.clone();
+  }
 	
 	public boolean isEqual(Object object){
 		if(object == null){
