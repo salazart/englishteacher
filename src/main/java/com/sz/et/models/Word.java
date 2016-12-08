@@ -12,6 +12,8 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.sz.et.interfaces.IEntity;
+
 @Entity
 @Table( name = "words" )
 public class Word implements IEntity, Cloneable{

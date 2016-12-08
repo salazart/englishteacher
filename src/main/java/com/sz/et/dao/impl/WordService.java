@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Repository;
 
 import com.sz.et.dao.GeneralDao;
-import com.sz.et.interfaces.IWordService;
+import com.sz.et.dao.interfaces.IWordService;
 import com.sz.et.models.Word;
 
 @Repository
@@ -110,10 +110,4 @@ public class WordService extends GeneralDao<Word> implements IWordService{
 		});
 		learnWords.clear();
 	}
-//	LocalDate localDate = LocalDate.
-//	LocalDate localDate = LocalDate.now();
-//	localDate.plusDays(1);
-//	Date date = Date.valueOf(localDate);
-//	new Date(Calendar.getInstance().getTimeInMillis());
-
 }

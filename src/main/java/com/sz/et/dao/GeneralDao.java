@@ -8,8 +8,8 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sz.et.interfaces.IDao;
-import com.sz.et.models.IEntity;
+import com.sz.et.dao.interfaces.IDao;
+import com.sz.et.interfaces.IEntity;
 import com.sz.et.models.Word;
 
 @Transactional

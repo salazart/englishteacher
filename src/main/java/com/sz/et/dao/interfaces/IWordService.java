@@ -1,4 +1,4 @@
-package com.sz.et.interfaces;
+package com.sz.et.dao.interfaces;
 
 import java.util.List;
 

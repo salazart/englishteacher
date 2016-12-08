@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.sz.et.interfaces.IWordService;
+import com.sz.et.config.AppConfig;
+import com.sz.et.dao.interfaces.IWordService;
 import com.sz.et.models.Word;
-import com.sz.et.services.AppConfig;
 
 public class WordTest {
 //	private static ApplicationContext xmlContext = new ClassPathXmlApplicationContext("spring-context.xml");

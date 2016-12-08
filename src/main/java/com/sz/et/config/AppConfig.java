@@ -1,4 +1,4 @@
-package com.sz.et.services;
+package com.sz.et.config;
 
 import java.util.Properties;
 
@@ -9,18 +9,18 @@ import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.sz.et.dao.impl.WordService;
-import com.sz.et.interfaces.IWordService;
+import com.sz.et.dao.interfaces.IWordService;
 import com.sz.et.models.Word;
 
 @Configuration
-@ImportResource("classpath:spring-context.xml")
+@PropertySource(value="classpath:database.properties")
 @EnableTransactionManagement
 public class AppConfig {
 
