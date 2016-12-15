@@ -83,6 +83,7 @@ public class AppConfig {
 		localContainerEntityManagerFactoryBean.setPersistenceProvider(new HibernatePersistenceProvider());
 		localContainerEntityManagerFactoryBean.setPackagesToScan("com.sz.et.models");
 		Properties jpaProperties = new Properties();
+		jpaProperties.setProperty("hbm2ddl.auto", "create");
 		jpaProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
 		jpaProperties.setProperty("hibernate.show_sql", "true");
 		localContainerEntityManagerFactoryBean.setJpaProperties(jpaProperties);
