@@ -1,7 +1,1 @@
-CREATE TABLE IF NOT EXISTS words (
-  id INTEGER PRIMARY KEY,
-  eng VARCHAR,
-  rus VARCHAR,
-  learnDate BIGINT,
-  repeatRange BIGINT
-);
+CREATE TABLE IF NOT EXISTS words(id INT PRIMARY KEY, eng varchar(255), learnDate bigint, repeatRange INT, rus varchar(255));
