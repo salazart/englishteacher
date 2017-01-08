@@ -12,7 +12,7 @@ public interface IWordService extends IDao<Word>{
 	Word getNextWord();
 	List<Word> getLearnWords();
 	boolean isEmpty();
-	void result(Word word);
-	void resultInCorrect(Word word);
+	void correctResult(Word word);
+	void inCorrectResult(Word word);
 	void saveResult();
 }

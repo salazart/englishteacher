@@ -43,7 +43,7 @@ public class Word implements IEntity, Cloneable{
         return (Word)super.clone();
   }
 	
-	public boolean isEqual(Object object){
+	public boolean equal(Object object){
 		if(object == null){
 			return false;
 		} else if(!(object instanceof Word)){

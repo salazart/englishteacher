@@ -40,6 +40,9 @@ public class AppConfig {
 	
 	@Value("${db.password}")
 	private String pass;
+	
+	@Value("${db.create}")
+	private boolean createDb;
 
 	@Bean
     public InternalResourceViewResolver viewResolver() {
@@ -83,7 +86,9 @@ public class AppConfig {
 		localContainerEntityManagerFactoryBean.setPersistenceProvider(new HibernatePersistenceProvider());
 		localContainerEntityManagerFactoryBean.setPackagesToScan("com.sz.et.models");
 		Properties jpaProperties = new Properties();
-		jpaProperties.setProperty("hibernate.hbm2ddl.auto", "create");
+		if(createDb){
+			jpaProperties.setProperty("hibernate.hbm2ddl.auto", "create");
+		}
 		jpaProperties.setProperty("hibernate.hbm2ddl.import_files", "import_data.sql");
 		jpaProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
 		jpaProperties.setProperty("hibernate.show_sql", "true");

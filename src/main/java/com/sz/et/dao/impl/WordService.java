@@ -40,28 +40,34 @@ public class WordService extends GeneralDao<Word> implements IWordService{
 	@Override
 	public Word getNextWord() {
 		if(words.isEmpty()){
-			List<Word> newWords = getLearnWords();
-			newWords.forEach(word -> word.setEngToRus(true));
-			words.addAll(newWords);
-			
-			for (int i = 0; i < newWords.size(); i++) {
-				try {
-					Word cloneWord = newWords.get(i).clone();
-					cloneWord.setEngToRus(false);
-					newWords.set(i, cloneWord);
-				} catch (CloneNotSupportedException e) {
-					System.err.println(e);
-				}
-			}
-				
-			words.addAll(newWords);
+			saveResult();
+			loadLearnWords();
 			System.out.println("words is loaded count words are: " + words.size());
-		}
+		} 	
+		
 		int index = random.nextInt(words.size());
 		Word word = words.get(index);
-		words.remove(index);
+		System.out.println("Left words for learning:" + words.size());
 		System.out.println("next word: " + word);
 		return word;
+	}
+
+	private void loadLearnWords() {
+		List<Word> newWords = getLearnWords();
+		newWords.forEach(word -> word.setEngToRus(true));
+		words.addAll(newWords);
+
+		for (int i = 0; i < newWords.size(); i++) {
+			try {
+				Word cloneWord = newWords.get(i).clone();
+				cloneWord.setEngToRus(false);
+				newWords.set(i, cloneWord);
+			} catch (CloneNotSupportedException e) {
+				System.err.println(e);
+			}
+		}
+
+		words.addAll(newWords);
 	}
 	
 	public boolean isEmpty(){
@@ -77,7 +83,15 @@ public class WordService extends GeneralDao<Word> implements IWordService{
 	}
 
 	@Override
-	public void result(Word word) {
+	public void correctResult(Word word) {
+		Word removeWord = words.stream()
+			.filter(oneWord -> oneWord.getEngToRus()== word.getEngToRus() &&
+					oneWord.getExampleWord().equals(word.getExampleWord()))
+			.findAny()
+			.get();
+		words.remove(removeWord);
+//		words.removeIf(filter)(filter)(word);
+		
 		int countRepeat = 0;
 		if(learnWords.containsKey(word.getId())){
 			countRepeat = learnWords.get(word.getId());
@@ -87,11 +101,10 @@ public class WordService extends GeneralDao<Word> implements IWordService{
 	}
 	
 	@Override
-	public void resultInCorrect(Word word) {
-		System.out.println("result incorrect");
+	public void inCorrectResult(Word word) {
 		words.add(word);
 		words.add(word);
-		result(word);
+		correctResult(word);
 	}
 
 	@Override

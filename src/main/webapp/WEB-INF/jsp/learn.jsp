@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>English teacher</title>
 </head>
-<body onload=${popupMessage} onkeyup="hotkey(event)">
+<body onload="${popupMessage}" onkeyup="hotkey(event)">
 	<form id='frm' action="learn" method="post" >
 	<input id="id" type="hidden" name="id" value='${word.id}'>
 		<table border="0" cellpadding="2" cellspacing="0" style="width: 360px">
@@ -18,7 +18,7 @@
 				<td><input name="exampleWord" type="text" size="20" value='${word.exampleWord}'></td>
 			</tr>
 			<tr>
-				<td><input name="translateWord" type="text" size="20" value='${translateWord}' autofocus></td>
+				<td><input name="translateWord" type="text" size="20" value='${translateWord}' autofocus autocomplete="off"></td>
 			</tr>
 			<tr>
 				<td>

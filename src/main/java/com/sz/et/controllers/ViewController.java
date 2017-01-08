@@ -82,24 +82,12 @@ public class ViewController {
 
 		if(originWord.getExampleWord().equals(exampleWord) && originWord.getTranslateWord().equals(translateWord)){
 			model.addAttribute("popupMessage", "window.alert('Вірно')");
-			wordService.result(originWord);
-			if(wordService.isEmpty()){
-				wordService.saveResult();
-			}
+			wordService.correctResult(originWord);
 			return learn(0, engToRus, model);
-		} else if (translateWord.isEmpty()){
-			model.addAttribute("popupMessage", "window.alert('Невірно.Спробуй_ще._Відповідь:_" + originWord.getTranslateWord() + "_');");
-			wordService.resultInCorrect(originWord);
-			if(wordService.isEmpty()){
-				wordService.saveResult();
-			}
-			return learn(originWord.getId(), engToRus, model);
 		} else {
-			model.addAttribute("popupMessage", "window.alert('Невірно.Спробуй_ще.');");
-			wordService.resultInCorrect(originWord);
-			if(wordService.isEmpty()){
-				wordService.saveResult();
-			}
+			System.out.println(translateWord);
+			model.addAttribute("popupMessage", "window.alert('Невірно. Правильна відповідь:" + originWord.getTranslateWord() + "');");
+			wordService.inCorrectResult(originWord);
 			return learn(originWord.getId(), engToRus, model);
 		}
 	}
